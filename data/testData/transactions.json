@@ -1,0 +1,158 @@
+{
+    "valid_credit_transaction": {
+      "id": "valid_credit_transaction",
+      "description": "Valid credit transaction with positive amount",
+      "priority": "high",
+      "category": "smoke",
+      "data": {
+        "currency": "EUR",
+        "amount": 100.50,
+        "type": "credit"
+      },
+      "expected": {
+        "status": 200,
+        "transactionStatus": "finished",
+        "outcome": "approved"
+      }
+    },
+    "valid_debit_transaction": {
+      "id": "valid_debit_transaction",
+      "description": "Valid debit transaction with positive amount",
+      "priority": "high",
+      "category": "smoke",
+      "data": {
+        "currency": "EUR",
+        "amount": 50.25,
+        "type": "debit"
+      },
+      "expected": {
+        "status": 200,
+        "transactionStatus": "finished",
+        "outcome": "approved"
+      }
+    },
+    "zero_amount_transaction": {
+      "id": "zero_amount_transaction",
+      "description": "Transaction with zero amount",
+      "priority": "medium",
+      "category": "regression",
+      "data": {
+        "currency": "EUR",
+        "amount": 0,
+        "type": "credit"
+      },
+      "expected": {
+        "status": 400,
+        "error": "Invalid amount"
+      }
+    },
+    "negative_amount_transaction": {
+      "id": "negative_amount_transaction",
+      "description": "Transaction with negative amount",
+      "priority": "medium",
+      "category": "regression",
+      "data": {
+        "currency": "USD",
+        "amount": -10.50,
+        "type": "credit"
+      },
+      "expected": {
+        "status": 400,
+        "error": "Invalid amount"
+      }
+    },
+    "invalid_currency_transaction": {
+      "id": "invalid_currency_transaction",
+      "description": "Transaction with invalid currency",
+      "priority": "medium",
+      "category": "regression",
+      "data": {
+        "currency": "XYZ",
+        "amount": 100,
+        "type": "credit"
+      },
+      "expected": {
+        "status": 400,
+        "error": "Invalid currency"
+      }
+    },
+    "large_amount_transaction": {
+      "id": "large_amount_transaction",
+      "description": "Transaction with very large amount",
+      "priority": "low",
+      "category": "regression",
+      "data": {
+        "currency": "USD",
+        "amount": 1000000.00,
+        "type": "credit"
+      },
+      "expected": {
+        "status": 200,
+        "transactionStatus": "pending"
+      }
+    },
+    "precision_amount_transaction": {
+      "id": "precision_amount_transaction",
+      "description": "Transaction with 4 decimal places amount",
+      "priority": "low",
+      "category": "regression",
+      "data": {
+        "currency": "EUR",
+        "amount": 100.5015,
+        "type": "credit"
+      },
+      "expected": {
+        "status": 200,
+        "transactionStatus": "finished",
+        "outcome": "approved"
+      }
+    },
+    "insufficient_funds_transaction": {
+      "id": "insufficient_funds_transaction",
+      "description": "Debit transaction with insufficient funds",
+      "priority": "high",
+      "category": "regression",
+      "data": {
+        "currency": "USD",
+        "amount": 10000,
+        "type": "debit"
+      },
+      "expected": {
+        "status": 200,
+        "transactionStatus": "finished",
+        "outcome": "denied"
+      }
+    },
+    "new_currency_transaction": {
+      "id": "new_currency_transaction",
+      "description": "Credit transaction with a currency not in the wallet",
+      "priority": "medium",
+      "category": "regression",
+      "data": {
+        "currency": "JPY",
+        "amount": 5000,
+        "type": "credit"
+      },
+      "expected": {
+        "status": 200,
+        "transactionStatus": "finished",
+        "outcome": "approved"
+      }
+    },
+    "transaction_timeout_simulation": {
+      "id": "transaction_timeout_simulation",
+      "description": "Transaction that will time out (for simulation)",
+      "priority": "low",
+      "category": "regression",
+      "data": {
+        "currency": "EUR",
+        "amount": 999999.99,
+        "type": "credit",
+        "simulateTimeout": true
+      },
+      "expected": {
+        "status": 200,
+        "transactionStatus": "pending"
+      }
+    }
+  }
